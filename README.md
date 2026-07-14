@@ -1,2 +1,21 @@
-# travel-planner-platform
-Automated Architect setup for Travel planner platform. Tech stack: Not specified. This story verifies Contentstack credentials; scaffolds the React fr
+# Travel planner platform
+
+Next.js 15 frontend. Backends: Contentful. Direct SDK calls from the frontend.
+
+## Run with Docker
+
+```bash
+cp .env.example .env.local
+# fill in real credentials in .env.local
+docker compose up
+```
+
+App runs at http://localhost:3000.
+
+## Run without Docker
+
+```bash
+npm install
+cp .env.example .env.local
+npm run dev
+```
