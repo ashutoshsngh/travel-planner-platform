@@ -1,0 +1,23 @@
+# Run this project end-to-end with `docker compose up`.
+# Reads env vars from .env.local (gitignored) — copy .env.example first.
+# Live preview: Next.js HMR pushes updates over WebSocket. On macOS Docker
+# Desktop, inotify events don't cross the bind mount, so WATCHPACK_POLLING
+# and CHOKIDAR_USEPOLLING force the dev server to poll for file changes.
+services:
+  web:
+    image: node:22-alpine
+    working_dir: /app
+    volumes:
+      - ./:/app
+      - /app/node_modules
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - NEXT_TELEMETRY_DISABLED=1
+      - WATCHPACK_POLLING=true
+      - CHOKIDAR_USEPOLLING=true
+      - CHOKIDAR_INTERVAL=1000
+    env_file:
+      - .env.local
+    command: sh -c "npm ci || npm install; npm run dev -- -p 3000 --hostname 0.0.0.0"
